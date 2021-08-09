@@ -14,3 +14,9 @@ class BingImage:
 
     def download_image(self, source_url):
         pass
+
+    def parse_source(self, response):
+        return 'RGB', (1, 1), 'https://example.com/image.png'
+
+    def request(self, keyword):
+        pass
