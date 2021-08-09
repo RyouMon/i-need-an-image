@@ -19,3 +19,13 @@ class BingImageTest(TestCase):
         mock_image_class.frombytes.assert_called_once_with(
             mode='RBG', size=(1920, 1080), data=mock_download_image.return_value
         )
+
+    @patch('need_an_image.downloader.BingImage.request')
+    @patch('need_an_image.downloader.BingImage.parse_source')
+    def test_get_image_info(self, mock_parse_source, mock_request):
+        bing = downloader.BingImage()
+
+        bing.get_image_info('Cat')
+
+        mock_request.assert_called_once_with(keyword='Cat')
+        mock_parse_source.assert_called_once_with(mock_request.return_value)
