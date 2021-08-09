@@ -1,14 +1,4 @@
-import requests
-from PIL import Image
-
-
-class BingImage:
-
-    def get_an_image(self, keyword):
-        response = self.search_request(keyword=keyword)
-        source_url = self.parse_source(response)
-        image_content = self.download_content(source_url)
-        return Image.frombytes(image_content)
+from need_an_image.downloader import BingImage
 
 
 bing = BingImage()
