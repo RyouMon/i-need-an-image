@@ -1,3 +1,4 @@
+from uuid import uuid4
 from need_an_image.downloader import BingImage
 
 
@@ -5,7 +6,9 @@ bing = BingImage()
 
 
 def save_image(image):
-    pass
+    filename = uuid4().hex + '.jpg'
+    image.save(filename, 'JPEG')
+    return filename
 
 
 def from_bing(keyword, save=True):
