@@ -39,3 +39,12 @@ class BingImageTest(TestCase):
 
         mock_get_search_params.assert_called_once_with(keyword='Cat')
         mock_requests.get.assert_called_once_with(bing.url, params=mock_get_search_params.return_value)
+
+    @patch('need_an_image.downloader.requests')
+    def test_download_image_return_bytes(self, mock_requests):
+        bing = downloader.BingImage()
+
+        content = bing.download_image('https://example.com/example.jpg')
+
+        mock_requests.get.assert_called_once_with('https://example.com/example.jpg')
+        self.assertEqual(content, mock_requests.get.return_value.content)
