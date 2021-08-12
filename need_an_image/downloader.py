@@ -10,6 +10,9 @@ from bs4 import BeautifulSoup
 class BingImage:
 
     url = 'https://cn.bing.com/images/search'
+    headers = {
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36 Edg/92.0.902.67'
+    }
 
     def get_image_source_url(self, response):
         soup = BeautifulSoup(response.text, features='lxml')
@@ -35,7 +38,7 @@ class BingImage:
         """
         request picture, return binary data
         """
-        response = requests.get(source_url)
+        response = requests.get(source_url, headers=self.headers)
         return response.content
 
     def download_search_page(self, keyword):
@@ -43,4 +46,4 @@ class BingImage:
         Send an image search search_request
         """
         payload = {'q': keyword}
-        return requests.get(self.url, params=payload)
+        return requests.get(self.url, params=payload, headers=self.headers)
