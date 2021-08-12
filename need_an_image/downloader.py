@@ -3,7 +3,7 @@ import random
 from io import BytesIO
 
 import requests
-from PIL import Image
+from PIL import Image, UnidentifiedImageError
 from bs4 import BeautifulSoup
 
 
@@ -25,14 +25,19 @@ class BingImage:
 
         return source_url
 
-    def get_an_image(self, keyword):
+    def get_an_image(self, keyword, max_retry=0):
         """
         return an Image matching keyword from web
         """
         response = self.download_search_page(keyword)
-        source_url = self.get_image_source_url(response)
-        image_content = self.download_image(source_url)
-        return Image.open(BytesIO(image_content))
+        while max_retry >= 0:
+            try:
+                source_url = self.get_image_source_url(response)
+                image_content = self.download_image(source_url)
+                return Image.open(BytesIO(image_content))
+            except UnidentifiedImageError:
+                max_retry -= 1
+        return None
 
     def download_image(self, source_url):
         """
