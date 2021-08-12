@@ -16,6 +16,9 @@ class BingImage:
         return self.parse_source(response)
 
     def get_an_image(self, keyword):
+        """
+        return an Image matching keyword from web
+        """
         source_url = self.get_image_source_url(keyword)
         image_content = self.download_image(source_url)
         return Image.open(BytesIO(image_content))
@@ -24,6 +27,9 @@ class BingImage:
         return {'q': keyword}
 
     def download_image(self, source_url):
+        """
+        request picture, return binary data
+        """
         response = requests.get(source_url)
         return response.content
 
