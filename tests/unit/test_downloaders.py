@@ -14,13 +14,12 @@ class BingImageTest(TestCase):
     def test_get_an_image(self, mock_get_image_source_url, download_search_page,
                           mock_download_image, mock_image_class, mock_io_class):
         bing = downloader.BingImage()
-        mock_get_image_source_url.return_value = 'https://example.com/exmple.jpg'
 
         bing.get_an_image('Cat')
 
         download_search_page.assert_called_once_with('Cat')
         mock_get_image_source_url.assert_called_once_with(download_search_page.return_value)
-        mock_download_image.assert_called_once()
+        mock_download_image.assert_called_once_with(mock_get_image_source_url.return_value)
         mock_io_class.assert_called_once_with(mock_download_image.return_value)
         mock_image_class.open.assert_called_once_with(mock_io_class.return_value)
 
