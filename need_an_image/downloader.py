@@ -5,6 +5,7 @@ from io import BytesIO
 import requests
 from PIL import Image, UnidentifiedImageError
 from bs4 import BeautifulSoup
+from need_an_image.decorators import retry_request
 
 
 class BingImage:
@@ -43,11 +44,12 @@ class BingImage:
                 max_retry -= 1
         return None
 
+    @retry_request(max_retry=2)
     def download_image(self, source_url):
         """
         request picture, return binary data
         """
-        response = requests.get(source_url, headers=self.headers)
+        response = requests.get(source_url, headers=self.headers, timeout=(3.05, 2))
         return response.content
 
     def download_search_page(self, keyword):
@@ -55,4 +57,4 @@ class BingImage:
         Send an image search search_request
         """
         payload = {'q': keyword}
-        return requests.get(self.url, params=payload, headers=self.headers)
+        return requests.get(self.url, params=payload, headers=self.headers, timeout=(3.05, 5))
