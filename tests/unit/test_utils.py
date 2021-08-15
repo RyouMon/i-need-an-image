@@ -11,5 +11,5 @@ class SaveImageTest(TestCase):
         mock_uuid4.return_value.hex = 'image'
         filename = need_an_image.save_image(mock_image)
 
-        mock_image.save.assert_called_once_with('image.jpg', 'JPEG')
+        mock_image.save.assert_called_once_with('image.jpg')
         self.assertEqual(filename, 'image.jpg')

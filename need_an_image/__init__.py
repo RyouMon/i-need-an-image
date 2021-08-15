@@ -6,8 +6,11 @@ bing = BingImage()
 
 
 def save_image(image):
-    filename = uuid4().hex + '.jpg'
-    image.save(filename, 'JPEG')
+    suffix = '.jpg'
+    if image.mode == 'RGBA':
+        suffix = '.png'
+    filename = uuid4().hex + suffix
+    image.save(filename)
     return filename
 
 
