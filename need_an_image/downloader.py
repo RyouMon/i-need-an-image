@@ -40,7 +40,7 @@ class BingImage:
                 source_url = self.get_image_source_url(response)
                 image_content = self.download_image(source_url)
                 return Image.open(BytesIO(image_content))
-            except UnidentifiedImageError:
+            except (UnidentifiedImageError, requests.ConnectionError):
                 max_retry -= 1
         return None
 
