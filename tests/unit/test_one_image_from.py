@@ -11,7 +11,7 @@ class FromBingTest(TestCase):
         filename = need_an_image.from_bing(keyword='Cat', save=True)
         image = mock_bing.get_an_image.return_value
 
-        mock_bing.get_an_image.assert_called_once_with(keyword='Cat')
+        mock_bing.get_an_image.assert_called_once_with(keyword='Cat', exact=True, allow_pos=())
         mock_save_image.assert_called_once_with(image)
         self.assertEqual(filename, mock_save_image.return_value)
 
@@ -20,6 +20,6 @@ class FromBingTest(TestCase):
     def test_from_bing_return_Image_if_save_is_False(self, mock_save_image, mock_bing):
         image = need_an_image.from_bing(keyword='Cat', save=False)
 
-        mock_bing.get_an_image.assert_called_once_with(keyword='Cat')
+        mock_bing.get_an_image.assert_called_once_with(keyword='Cat', exact=True, allow_pos=())
         mock_save_image.assert_not_called()
         self.assertEqual(image, mock_bing.get_an_image.return_value)

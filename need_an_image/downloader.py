@@ -5,6 +5,7 @@ from io import BytesIO
 import requests
 from PIL import Image, UnidentifiedImageError
 from bs4 import BeautifulSoup
+from jieba import analyse
 from need_an_image.decorators import retry_request
 
 
@@ -30,10 +31,16 @@ class BingImage:
 
         return source_url
 
-    def get_an_image(self, keyword, max_retry=0):
+    def get_an_image(self, keyword, max_retry=0, exact=True, allow_pos=()):
         """
         return an Image matching keyword from web
         """
+        if not exact:
+            keywords = analyse.extract_tags(keyword, allowPOS=allow_pos, withWeight=True)
+            if not keywords:
+                keywords = analyse.extract_tags(keyword)
+            keyword = random.choice(keywords)
+
         response = self.download_search_page(keyword)
         while max_retry >= 0:
             try:

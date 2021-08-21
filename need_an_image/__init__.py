@@ -14,13 +14,13 @@ def save_image(image):
     return filename
 
 
-def from_bing(keyword, save=True):
+def from_bing(keyword, save=True, exact=True, allow_pos=()):
     """
     Get an image from Bing image.
     if save = True , image with save in disk and return a filename,
     if save = False, return an PIL.Image object.
     """
-    image = bing.get_an_image(keyword=keyword)
+    image = bing.get_an_image(keyword=keyword, exact=exact, allow_pos=allow_pos)
 
     if save:
         return save_image(image)
