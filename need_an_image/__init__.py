@@ -1,28 +1,9 @@
-import os.path
 import logging
 import sys
-from uuid import uuid4
 from engines import ENGINES
+from utils.store import save_image
 
 logging.basicConfig(stream=sys.stderr, level=logging.INFO)
-
-
-def save_image(image, save_to='.'):
-    suffix = '.jpg'
-    if image.mode == 'RGBA':
-        suffix = '.png'
-
-    if image.mode == 'P':
-        image = image.convert('RGB')
-
-    filename = uuid4().hex + suffix
-
-    if not os.path.isdir(save_to):
-        os.makedirs(save_to)
-    filename = os.path.join(save_to, filename)
-
-    image.save(filename)
-    return filename
 
 
 def need_image_from(engine, keyword, exact=True, allow_pos=(), save_to=None, max_retry=3):
