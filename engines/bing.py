@@ -7,7 +7,7 @@ import requests
 from PIL import Image, UnidentifiedImageError
 from bs4 import BeautifulSoup
 from jieba import analyse
-from need_an_image.decorators import retry_request
+from utils.decorators import retry_request
 
 
 class BingImage:
