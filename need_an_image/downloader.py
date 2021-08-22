@@ -44,7 +44,7 @@ class BingImage:
             if not keywords:
                 keywords = analyse.extract_tags(keyword)
             keyword = random.choice(keywords)
-            self.logger.info(f'Downloading image for keyword: {keyword}.')
+        self.logger.info(f'Downloading image for keyword: {keyword}.')
 
         response = self.download_search_page(keyword)
 
