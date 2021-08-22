@@ -1,5 +1,6 @@
 import json
 import random
+import logging
 from io import BytesIO
 
 import requests
@@ -16,6 +17,9 @@ class BingImage:
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36 Edg/92.0.902.67'
     }
     images = []
+
+    def __init__(self):
+        self.logger = logging.getLogger(self.__class__.__name__)
 
     def get_image_source_url(self, response):
         if not self.images:
@@ -36,20 +40,28 @@ class BingImage:
         return an Image matching keyword from web
         """
         if not exact:
-            keywords = analyse.extract_tags(keyword, allowPOS=allow_pos, withWeight=True)
+            keywords = analyse.extract_tags(keyword, allowPOS=allow_pos)
             if not keywords:
                 keywords = analyse.extract_tags(keyword)
             keyword = random.choice(keywords)
+            self.logger.info(f'Downloading image for keyword: {keyword}.')
 
         response = self.download_search_page(keyword)
+
         while max_retry >= 0:
+
             try:
                 source_url = self.get_image_source_url(response)
                 image_content = self.download_image(source_url)
-                return Image.open(BytesIO(image_content))
+                image = Image.open(BytesIO(image_content))
+                self.logger.info(f'Download image for keyword: {keyword}, Successfully.')
+                return image
+
             except (UnidentifiedImageError, requests.ConnectionError):
+                self.logger.info(f'Retry downloading image for keyword: {keyword}.')
                 max_retry -= 1
-        return None
+
+        self.logger.info(f'Failed to download image for keyword: {keyword}.')
 
     @retry_request(max_retry=2)
     def download_image(self, source_url):
