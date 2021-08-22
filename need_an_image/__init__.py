@@ -19,6 +19,9 @@ def save_image(image, save_to='.'):
     if image.mode == 'RGBA':
         suffix = '.png'
 
+    if image.mode == 'P':
+        image = image.convert('RGB')
+
     filename = uuid4().hex + suffix
 
     if not os.path.isdir(save_to):
