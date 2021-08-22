@@ -2,16 +2,9 @@ import os.path
 import logging
 import sys
 from uuid import uuid4
-from need_an_image.downloader import BingImage
+from engines import ENGINES
 
 logging.basicConfig(stream=sys.stderr, level=logging.INFO)
-
-bing = BingImage()
-
-
-DOWNLOADER = {
-    'bing': bing,
-}
 
 
 def save_image(image, save_to='.'):
@@ -33,7 +26,7 @@ def save_image(image, save_to='.'):
 
 
 def need_image_from(engine, keyword, exact=True, allow_pos=(), save_to=None, max_retry=3):
-    image = DOWNLOADER[engine].get_an_image(keyword=keyword, exact=exact, allow_pos=allow_pos, max_retry=max_retry)
+    image = ENGINES[engine].get_an_image(keyword=keyword, exact=exact, allow_pos=allow_pos, max_retry=max_retry)
 
     if image is None:
         return
