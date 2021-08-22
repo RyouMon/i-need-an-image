@@ -35,6 +35,9 @@ def save_image(image, save_to='.'):
 def need_image_from(engine, keyword, exact=True, allow_pos=(), save_to=None, max_retry=3):
     image = DOWNLOADER[engine].get_an_image(keyword=keyword, exact=exact, allow_pos=allow_pos, max_retry=max_retry)
 
+    if image is None:
+        return
+
     if save_to:
         filename = save_image(image, save_to=save_to)
         return filename
