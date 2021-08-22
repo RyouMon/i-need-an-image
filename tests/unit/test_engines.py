@@ -1,16 +1,16 @@
 from unittest import TestCase
 from unittest.mock import patch, call
 from PIL import UnidentifiedImageError
-import engines
+from need_an_image import engines
 
 
 class BingImageTest(TestCase):
 
-    @patch('engines.bing.BytesIO')
-    @patch('engines.bing.Image')
-    @patch('engines.bing.BingImage.download_image')
-    @patch('engines.bing.BingImage.download_search_page')
-    @patch('engines.bing.BingImage.get_image_source_url')
+    @patch('need_an_image.engines.bing.BytesIO')
+    @patch('need_an_image.engines.bing.Image')
+    @patch('need_an_image.engines.bing.BingImage.download_image')
+    @patch('need_an_image.engines.bing.BingImage.download_search_page')
+    @patch('need_an_image.engines.bing.BingImage.get_image_source_url')
     def test_get_an_image(self, mock_get_image_source_url, download_search_page,
                           mock_download_image, mock_image_class, mock_io_class):
         bing = engines.BingImage()
@@ -23,7 +23,7 @@ class BingImageTest(TestCase):
         mock_io_class.assert_called_once_with(mock_download_image.return_value)
         mock_image_class.open.assert_called_once_with(mock_io_class.return_value)
 
-    @patch('engines.bing.requests')
+    @patch('need_an_image.engines.bing.requests')
     def test_download_image_return_bytes(self, mock_requests):
         bing = engines.BingImage()
 
@@ -32,11 +32,11 @@ class BingImageTest(TestCase):
         mock_requests.get.assert_called_once()
         self.assertEqual(content, mock_requests.get.return_value.content)
 
-    @patch('engines.bing.BytesIO')
-    @patch('engines.bing.Image')
-    @patch('engines.bing.BingImage.download_image')
-    @patch('engines.bing.BingImage.download_search_page')
-    @patch('engines.bing.BingImage.get_image_source_url')
+    @patch('need_an_image.engines.bing.BytesIO')
+    @patch('need_an_image.engines.bing.Image')
+    @patch('need_an_image.engines.bing.BingImage.download_image')
+    @patch('need_an_image.engines.bing.BingImage.download_search_page')
+    @patch('need_an_image.engines.bing.BingImage.get_image_source_url')
     def test_retry_when_get_an_image_raiseUnidentifiedImageError(self, mock_get_image_source_url,
                                                                  mock_download_search_page,
                                                                  mock_download_image, mock_image_class,

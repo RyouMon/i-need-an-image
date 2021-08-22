@@ -1,7 +1,7 @@
 import logging
 import sys
-from engines import ENGINES
-from utils.store import save_image
+from need_an_image.engines import ENGINES
+from need_an_image.utils.store import save_image
 
 logging.basicConfig(stream=sys.stderr, level=logging.INFO)
 
