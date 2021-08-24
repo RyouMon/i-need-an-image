@@ -7,11 +7,12 @@ def save_image(image, save_to='.'):
     Save image to local dick
     """
     suffix = '.jpg'
-    if image.mode == 'RGBA':
-        suffix = '.png'
 
     if image.mode == 'P':
-        image = image.convert('RGB')
+        image = image.convert('RGBA')
+
+    if image.mode == 'RGBA':
+        suffix = '.png'
 
     filename = uuid4().hex + suffix
 
