@@ -68,7 +68,7 @@ class BingImage:
         """
         request picture, return binary data
         """
-        response = requests.get(source_url, headers=self.headers, timeout=(3.05, 2))
+        response = requests.get(source_url, headers=self.headers, timeout=(3.05, 3))
         return response.content
 
     def download_search_page(self, keyword):
