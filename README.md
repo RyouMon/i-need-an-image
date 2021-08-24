@@ -1,6 +1,8 @@
 # i-need-an-image
 Download only one image from web
 
+根据自己的项目需求，开发中...
+
 确保可以从互联网上获取一张符合条件图片。可以指定图片的以下特征：
 + 关键词或一句话里的某个关键词
 + 图片的版式：横板、竖版、方形
@@ -12,4 +14,9 @@ Download only one image from web
 
 架构愿景：
 1. 希望可以像`Scrapy`的流水线一样，不同来源的下载器可随意插拔和扩展。
-2. 入口点只有一个`give_me()`函数。
+2. 入口点只有一个`need_image_from()`函数。
+
+### 安装
+```bash
+pip install i-need-an-image
+```
