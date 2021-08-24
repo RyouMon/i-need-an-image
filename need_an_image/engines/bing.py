@@ -55,7 +55,7 @@ class BingImage:
                 self.logger.info(f'Download image for keyword: {keyword}, Successfully.')
                 return image
 
-            except (UnidentifiedImageError, requests.ConnectionError):
+            except (UnidentifiedImageError, requests.RequestException):
                 self.logger.info(f'Retry downloading image for keyword: {keyword}.')
                 max_retry -= 1
 
