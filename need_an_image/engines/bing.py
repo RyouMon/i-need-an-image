@@ -1,5 +1,4 @@
 import json
-import random
 import logging
 from io import BytesIO
 
@@ -28,8 +27,7 @@ class BingImage:
             image_component = soup.find(id='mmComponent_images_1')
             self.images = image_component.find_all('a', class_='iusc')
 
-        image = random.choice(self.images)
-        self.images.remove(image)
+        image = self.images.pop(0)
         metadata = json.loads(image['m'])
         source_url = metadata['murl']
 
@@ -43,7 +41,7 @@ class BingImage:
             keywords = analyse.extract_tags(keyword, allowPOS=allow_pos)
             if not keywords:
                 keywords = analyse.extract_tags(keyword)
-            keyword = random.choice(keywords)
+            keyword = keywords[0]
         self.logger.info(f'Downloading image for keyword: {keyword}.')
 
         response = self.download_search_page(keyword)
