@@ -55,3 +55,25 @@ class BingImageTest(TestCase):
 
         calls = [call(mock_get_image_source_url.return_value)] * 4
         mock_download_image.assert_has_calls(calls)
+
+    @patch('need_an_image.engines.bing.Image')
+    @patch('need_an_image.engines.bing.BytesIO')
+    @patch('need_an_image.engines.bing.BingImage.download_image')
+    @patch('need_an_image.engines.bing.BingImage.get_image_source_url')
+    @patch('need_an_image.engines.bing.BingImage.download_search_page')
+    @patch('need_an_image.engines.bing.BingImage.clean_image_metadata_cache')
+    def test_clean_image_meta_data_cache_after_get_an_image_success(
+        self, mock_clean_image_metadata_cache, _1, _2, _3, _4, _5
+    ):
+        bing = engines.BingImage()
+
+        bing.get_an_image('Cat')
+        mock_clean_image_metadata_cache.assert_called_once()
+
+    @patch('need_an_image.engines.bing.BingImage.download_search_page')
+    @patch('need_an_image.engines.bing.BingImage.clean_image_metadata_cache')
+    def test_clean_image_meta_data_cache_after_get_an_image_fail(self, mock_clean_image_metadata_cache, _):
+        bing = engines.BingImage()
+
+        bing.get_an_image('Cat', max_retry=-1)
+        mock_clean_image_metadata_cache.assert_called_once()
