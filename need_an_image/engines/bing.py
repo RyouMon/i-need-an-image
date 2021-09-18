@@ -1,3 +1,4 @@
+import random
 import json
 import logging
 from io import BytesIO
@@ -27,6 +28,7 @@ class BingImage:
             image_component = soup.find(id='mmComponent_images_1')
             self._images = image_component.find_all('a', class_='iusc')
 
+        random.shuffle(self._images)
         image = self._images.pop(0)
         metadata = json.loads(image['m'])
         source_url = metadata['murl']
