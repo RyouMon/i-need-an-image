@@ -12,10 +12,11 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
+        os: [ubuntu-latest, windows-latest]
         python-version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
 
     steps:
@@ -35,8 +36,15 @@ jobs:
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with unittest
+    - name: Test with unittest on Linux
+      if: matrix.os == 'ubuntu-latest'
       run: |
         cd tests
         export PYTHONPATH=../src
+        python -m unittest
+    - name: Test with unittest on Windows
+      if: matrix.os == 'windows-latest'
+      run: |
+        cd tests
+        set PYTHONPATH=../src
         python -m unittest
