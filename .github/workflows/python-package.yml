@@ -39,12 +39,10 @@ jobs:
     - name: Test with unittest on Linux
       if: matrix.os == 'ubuntu-latest'
       run: |
-        cd tests
-        export PYTHONPATH=../src
-        python -m unittest
+        export PYTHONPATH=src
+        python -m unittest discover tests/unit
     - name: Test with unittest on Windows
       if: matrix.os == 'windows-latest'
       run: |
-        cd tests
-        set PYTHONPATH=..\src
-        python -m unittest
+        set PYTHONPATH=src
+        python -m unittest discover tests/unit
