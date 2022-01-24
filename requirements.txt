@@ -1,5 +1,5 @@
 Pillow>=8.0
 requests>=2.0
 beautifulsoup4==4.9.3
-lxml==4.6.3
+lxml==4.7.1
 jieba>=0.42.1
