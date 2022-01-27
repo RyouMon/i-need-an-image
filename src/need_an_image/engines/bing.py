@@ -14,7 +14,8 @@ class BingImage:
 
     url = 'https://cn.bing.com/images/search'
     headers = {
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36 Edg/92.0.902.67'
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/92.0.4515.131 Safari/537.36 Edg/92.0.902.67'
     }
     _images = []
 
@@ -52,6 +53,8 @@ class BingImage:
 
             try:
                 source_url = self.get_image_source_url(response)
+                if source_url is None:
+                    continue
                 image_content = self.download_image(source_url)
                 image = Image.open(BytesIO(image_content))
                 self.clean_image_metadata_cache()

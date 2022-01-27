@@ -1,4 +1,3 @@
-import os
 from unittest import TestCase
 from PIL import Image
 import need_an_image

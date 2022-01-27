@@ -1,4 +1,5 @@
 import functools
+
 from requests.exceptions import RequestException
 
 
@@ -13,7 +14,7 @@ def retry_request(max_retry=3):
             while retry:
                 try:
                     return function(*args, **kwargs)
-                except RequestException as e:
+                except RequestException:
                     retry -= 1
             return function(*args, **kwargs)
         return wrapped
