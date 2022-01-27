@@ -1,4 +1,7 @@
 # i-need-an-image
+[![Build](https://img.shields.io/github/workflow/status/RyouMon/i-need-an-image/Python%20package/dev)](https://github.com/RyouMon/i-need-an-image/actions/workflows/python-package.yml)
+[![Version](https://img.shields.io/pypi/v/i-need-an-image)](https://pypi.org/project/i-need-an-image/)
+[![Downloads](https://static.pepy.tech/personalized-badge/i-need-an-image?period=total&units=international_system&left_color=gray&right_color=red&left_text=downloads)](https://pepy.tech/project/i-need-an-image)
 
 Download only one image from web, only one API.   
 从互联网中仅下载一张图片，使用时仅需一个接口。
